@@ -1,6 +1,4 @@
-// Import dependencies
-import * as THREE from 'https://unpkg.com/three@0.157.0/build/three.module.js';
-import { gsap } from 'https://unpkg.com/gsap@3.12.2/dist/gsap.min.js';
+// Import styles
 import './styles/main.css';
 
 // Debug logging
