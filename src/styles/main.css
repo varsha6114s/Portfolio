@@ -24,8 +24,6 @@
     --border-dark: rgba(255, 255, 255, 0.05);
     --warm-white: #f8f9fa;
     --dark-gray: #1a1a1a;
-    --blue-500: #4a90e2;
-    --blue-600: #357abd;
     color-scheme: light;
 }
 
@@ -449,25 +447,43 @@ a {
 }
 
 body.dark a {
-    color: var(--accent-dark);
+    color: var(--primary-light);
 }
 
 a:hover {
-    color: var(--primary-color);
+    color: var(--primary-hover);
 }
 
 body.dark a:hover {
-    color: #7dd3fc;
+    color: var(--accent-color);
+}
+
+/* Navigation links */
+nav a {
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+body.dark nav a {
+    color: var(--text-light);
+}
+
+body.dark nav a:hover {
+    color: var(--accent-color);
 }
 
 /* Project tags */
 body.dark .px-3.py-1.bg-blue-100 {
-    background: rgba(56, 189, 248, 0.1) !important;
-    color: #7dd3fc !important;
+    background: rgba(139, 92, 246, 0.1) !important;
+    color: var(--primary-light) !important;
 }
 
 body.dark .px-3.py-1.text-blue-800 {
-    color: #7dd3fc !important;
+    color: var(--primary-light) !important;
 }
 
 /* Scrollbar */
@@ -484,25 +500,18 @@ body.dark ::-webkit-scrollbar-track {
 }
 
 body.dark ::-webkit-scrollbar-thumb {
-    background: var(--accent-dark);
+    background: var(--accent-color);
 }
 
 /* Skill icons */
 body.dark .text-blue-500 {
-    color: var(--accent-dark) !important;
+    color: var(--primary-color) !important;
 }
 
 /* Contact form */
-body.dark input,
-body.dark textarea {
-    background: rgba(30, 41, 59, 0.4);
-    border-color: var(--border-dark);
-    color: var(--text-dark);
-}
-
 body.dark input:focus,
 body.dark textarea:focus {
-    border-color: var(--accent-dark);
+    border-color: var(--primary-color);
 }
 
 /* Add transition to all color changes */
