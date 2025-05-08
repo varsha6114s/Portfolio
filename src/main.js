@@ -1,13 +1,14 @@
 // Import dependencies
 import * as THREE from 'https://unpkg.com/three@0.157.0/build/three.module.js';
-import { gsap } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+import { gsap } from 'https://unpkg.com/gsap@3.12.2/dist/gsap.min.js';
 import './styles/main.css';
 
 // Debug logging
 console.log('Initializing portfolio...');
 
-// Initialize Three.js scene
+// Initialize variables
 let scene, camera, renderer, particles;
+let isDarkMode = false;
 const particleCount = 2000;
 
 // Initialize when DOM is ready
