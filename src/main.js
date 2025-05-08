@@ -8,7 +8,7 @@ console.log('Initializing portfolio...');
 // Initialize variables
 let scene, camera, renderer, particles;
 let isDarkMode = false;
-const particleCount = 2000;
+const particleCount = 3000; // Increased particle count
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,7 +31,7 @@ function initThreeJS() {
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 30;
+    camera.position.z = 50; // Moved camera back for better view
 
     // Create renderer
     const canvas = document.getElementById('particle-canvas');
@@ -48,7 +48,8 @@ function initThreeJS() {
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    
+    renderer.setClearColor(0x000000, 0); // Make background transparent
+
     // Create particles
     createParticles();
 
@@ -74,8 +75,8 @@ function initThreeJS() {
 
         if (particles) {
             gsap.to(particles.rotation, {
-                x: mouseY * 0.1,
-                y: mouseX * 0.1,
+                x: mouseY * 0.2, // Increased rotation effect
+                y: mouseX * 0.2,
                 duration: 2
             });
         }
@@ -96,9 +97,14 @@ function createParticles() {
 
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] = (Math.random() - 0.5) * 50;
-        positions[i3 + 1] = (Math.random() - 0.5) * 50;
-        positions[i3 + 2] = (Math.random() - 0.5) * 50;
+        // Create a sphere of particles
+        const radius = 30;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        
+        positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions[i3 + 2] = radius * Math.cos(phi);
 
         // Set colors based on theme
         if (isDarkMode) {
@@ -115,10 +121,11 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.1,
+        size: 0.2, // Increased particle size
         vertexColors: true,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending // Add additive blending for better visibility
     });
 
     particles = new THREE.Points(geometry, material);
