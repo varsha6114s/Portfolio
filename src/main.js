@@ -7,7 +7,6 @@ console.log('Initializing portfolio...');
 
 // Initialize variables
 let scene, camera, renderer, particles;
-let isDarkMode = false;
 const particleCount = 2000; // Reduced for better performance
 
 // Initialize when DOM is ready
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
     initThreeJS();
-    setupThemeToggle();
     setupMobileMenu();
     setupSmoothScroll();
 });
@@ -182,7 +180,7 @@ function setTheme(isDark) {
     }
 }
 
-// Check for saved theme preference or use system preference
+// Initialize theme based on saved preference or system preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
     setTheme(savedTheme === 'dark');
@@ -191,11 +189,13 @@ if (savedTheme) {
 }
 
 // Theme toggle click handler
-themeToggle.addEventListener('click', () => {
-    const isDark = body.classList.contains('dark');
-    setTheme(!isDark);
-    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isDark = body.classList.contains('dark');
+        setTheme(!isDark);
+        localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+    });
+}
 
 // Listen for system theme changes
 prefersDarkScheme.addEventListener('change', (e) => {
