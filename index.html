@@ -6,11 +6,12 @@
     <title>Varsha S - Machine Learning Enthusiast & Data Scientist</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Load Three.js and GSAP before main.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <!-- Load main.js last -->
-    <script type="module" src="/src/main.js" defer></script>
+    <link rel="stylesheet" href="./src/styles/main.css">
+    <!-- Load Three.js and GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Load main.js -->
+    <script type="module" src="./src/main.js"></script>
 </head>
 <body class="bg-transparent">
     <!-- Header -->
@@ -49,7 +50,7 @@
     </header>
 
     <!-- Three.js Canvas -->
-    <div id="background-3d" class="fixed inset-0 z-0"></div>
+    <canvas id="background-3d"></canvas>
 
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:scale-110 transition-transform" aria-label="Toggle theme">

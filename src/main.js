@@ -4,8 +4,7 @@ import { gsap } from 'gsap';
 import './styles/main.css';
 
 // Debug logging
-console.log('Three.js version:', THREE.REVISION);
-console.log('GSAP version:', gsap.version);
+console.log('Initializing portfolio...');
 
 // Initialize Three.js scene
 let scene, camera, renderer, particles;
@@ -13,15 +12,16 @@ const particleCount = 2000;
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Setting up theme toggle...');
+    console.log('DOM loaded, setting up...');
     setupThemeToggle();
-    console.log('Initializing Three.js scene...');
     initThreeJS();
     setupMobileMenu();
     setupSmoothScroll();
 });
 
 function initThreeJS() {
+    console.log('Initializing Three.js...');
+    
     // Create scene
     scene = new THREE.Scene();
     
@@ -31,11 +31,26 @@ function initThreeJS() {
 
     // Create renderer
     const canvas = document.getElementById('background-3d');
-    renderer = new THREE.WebGLRenderer({ 
+    if (!canvas) {
+        console.error('Canvas element not found!');
+        return;
+    }
+    
+    console.log('Canvas found, creating renderer...');
+    renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: true 
+        antialias: true
     });
+    
+    // Set canvas size
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.zIndex = '0';
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -65,13 +80,16 @@ function initThreeJS() {
         const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
         const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        gsap.to(particles.rotation, {
-            x: mouseY * 0.1,
-            y: mouseX * 0.1,
-            duration: 2
-        });
+        if (particles) {
+            gsap.to(particles.rotation, {
+                x: mouseY * 0.1,
+                y: mouseX * 0.1,
+                duration: 2
+            });
+        }
     });
 
+    console.log('Three.js initialization complete');
     // Start animation loop
     animate();
 }
