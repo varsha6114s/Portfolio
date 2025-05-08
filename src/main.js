@@ -34,9 +34,9 @@ function initializeTheme() {
             for (let i = 0; i < particleCount; i++) {
                 const i3 = i * 3;
                 if (isDark) {
-                    color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+                    color.setHSL(0.7 + Math.random() * 0.2, 0.9, 0.6 + Math.random() * 0.3);
                 } else {
-                    color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
+                    color.setHSL(0.8 + Math.random() * 0.2, 0.9, 0.5 + Math.random() * 0.3);
                 }
                 colors[i3] = color.r;
                 colors[i3 + 1] = color.g;
@@ -181,11 +181,11 @@ function createParticles() {
 
         // Set more vibrant colors based on theme
         if (isDarkMode) {
-            // Use a rich blue-purple gradient for dark mode
-            color.setHSL(0.6 + Math.random() * 0.2, 0.9, 0.6 + Math.random() * 0.3);
+            // Use a rich purple-pink gradient for dark mode
+            color.setHSL(0.7 + Math.random() * 0.2, 0.9, 0.6 + Math.random() * 0.3);
         } else {
-            // Use a warm orange-yellow gradient for light mode
-            color.setHSL(0.1 + Math.random() * 0.2, 0.9, 0.5 + Math.random() * 0.3);
+            // Use a soft purple-pink gradient for light mode
+            color.setHSL(0.8 + Math.random() * 0.2, 0.9, 0.5 + Math.random() * 0.3);
         }
         colors[i3] = color.r;
         colors[i3 + 1] = color.g;
@@ -286,9 +286,9 @@ const observer = new MutationObserver((mutations) => {
                 for (let i = 0; i < particleCount; i++) {
                     const i3 = i * 3;
                     if (document.body.classList.contains('dark')) {
-                        color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+                        color.setHSL(0.7 + Math.random() * 0.2, 0.9, 0.6 + Math.random() * 0.3);
                     } else {
-                        color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
+                        color.setHSL(0.8 + Math.random() * 0.2, 0.9, 0.5 + Math.random() * 0.3);
                     }
                     colors[i3] = color.r;
                     colors[i3 + 1] = color.g;
