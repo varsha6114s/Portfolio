@@ -8,11 +8,11 @@ console.log('Initializing portfolio...');
 // Initialize variables
 let scene, camera, renderer, particles;
 let isDarkMode = false;
-const particleCount = 5000; // Increased particle count for more density
+const particleCount = 2000; // Reduced for better performance
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Initializing...');
+    console.log('DOM loaded, initializing...');
     if (typeof gsap === 'undefined') {
         console.error('GSAP not loaded!');
         return;
@@ -31,7 +31,7 @@ function initThreeJS() {
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 40; // Adjusted camera position
+    camera.position.z = 30;
 
     // Create renderer
     const canvas = document.getElementById('particle-canvas');
@@ -39,6 +39,7 @@ function initThreeJS() {
         console.error('Canvas not found!');
         return;
     }
+    console.log('Canvas found:', canvas);
 
     renderer = new THREE.WebGLRenderer({ 
         canvas,
@@ -54,10 +55,10 @@ function initThreeJS() {
     createParticles();
 
     // Add lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Increased light intensity
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 1.5); // Increased light intensity
+    const pointLight = new THREE.PointLight(0xffffff, 2);
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
@@ -75,8 +76,8 @@ function initThreeJS() {
 
         if (particles) {
             gsap.to(particles.rotation, {
-                x: mouseY * 0.3, // Increased rotation effect
-                y: mouseX * 0.3,
+                x: mouseY * 0.5,
+                y: mouseX * 0.5,
                 duration: 2
             });
         }
@@ -88,6 +89,7 @@ function initThreeJS() {
 }
 
 function createParticles() {
+    console.log('Creating particles...');
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -98,7 +100,7 @@ function createParticles() {
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
         // Create a sphere of particles
-        const radius = 25; // Reduced radius for better visibility
+        const radius = 20;
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(Math.random() * 2 - 1);
         
@@ -108,9 +110,9 @@ function createParticles() {
 
         // Set colors based on theme
         if (isDarkMode) {
-            color.setHSL(0.6, 0.9, 0.6 + Math.random() * 0.2); // Brighter colors for dark mode
+            color.setHSL(0.6, 1, 0.7); // Brighter colors for dark mode
         } else {
-            color.setHSL(0.6, 0.9, 0.4 + Math.random() * 0.2); // Brighter colors for light mode
+            color.setHSL(0.6, 1, 0.5); // Brighter colors for light mode
         }
         colors[i3] = color.r;
         colors[i3 + 1] = color.g;
@@ -121,23 +123,24 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.3, // Increased particle size
+        size: 0.5, // Larger particles
         vertexColors: true,
         transparent: true,
-        opacity: 0.9, // Increased opacity
+        opacity: 1,
         blending: THREE.AdditiveBlending,
         sizeAttenuation: true
     });
 
     particles = new THREE.Points(geometry, material);
     scene.add(particles);
+    console.log('Particles created and added to scene');
 }
 
 function animate() {
     requestAnimationFrame(animate);
     if (particles) {
-        particles.rotation.x += 0.0003; // Slower rotation
-        particles.rotation.y += 0.0003;
+        particles.rotation.x += 0.001;
+        particles.rotation.y += 0.001;
     }
     renderer.render(scene, camera);
 }
