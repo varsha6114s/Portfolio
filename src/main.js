@@ -13,10 +13,14 @@ const particleCount = 2000;
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, setting up...');
-    initThreeJS();
-    setupThemeToggle();
-    setupMobileMenu();
-    setupSmoothScroll();
+    try {
+        initThreeJS();
+        setupThemeToggle();
+        setupMobileMenu();
+        setupSmoothScroll();
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
 });
 
 function initThreeJS() {
@@ -44,6 +48,13 @@ function initThreeJS() {
     });
     
     // Set canvas size and styles
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.zIndex = '-1';
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
