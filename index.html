@@ -12,14 +12,14 @@
 </head>
 <body class="bg-warm-white dark:bg-dark-gray">
     <!-- 3D Background -->
-    <div id="background-3d" class="fixed inset-0 -z-10">
-        <canvas id="particle-canvas"></canvas>
+    <div id="background-3d" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+        <canvas id="particle-canvas" style="width: 100%; height: 100%;"></canvas>
     </div>
 
     <!-- Theme Toggle -->
-    <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all">
-        <i class="fas fa-sun text-yellow-400 dark:hidden"></i>
-        <i class="fas fa-moon text-blue-200 hidden dark:block"></i>
+    <button id="theme-toggle" style="position: fixed; top: 1rem; right: 1rem; z-index: 50; padding: 0.5rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); border: none; cursor: pointer; transition: all 0.3s ease;">
+        <i class="fas fa-sun" style="color: #fbbf24; display: block;"></i>
+        <i class="fas fa-moon" style="color: #93c5fd; display: none;"></i>
     </button>
 
     <!-- Navigation -->

@@ -47,14 +47,6 @@ function initThreeJS() {
         antialias: true 
     });
     
-    // Set canvas size and styles
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.zIndex = '-1';
-    
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
@@ -146,47 +138,55 @@ function animate() {
 function setupThemeToggle() {
     console.log('Setting up theme toggle...');
     const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
+    const sunIcon = themeToggle.querySelector('.fa-sun');
+    const moonIcon = themeToggle.querySelector('.fa-moon');
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        body.classList.add('dark');
+        document.body.classList.add('dark');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    } else {
+        document.body.classList.remove('dark');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
     }
     
     themeToggle.addEventListener('click', () => {
-        const isDark = body.classList.toggle('dark');
+        const isDark = document.body.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        updateSceneColors();
+        
+        // Update icons
+        sunIcon.style.display = isDark ? 'none' : 'block';
+        moonIcon.style.display = isDark ? 'block' : 'none';
+        
+        // Update particle colors
+        updateParticleColors();
     });
 
     console.log('Theme toggle setup complete');
 }
 
-function updateSceneColors() {
+function updateParticleColors() {
+    if (!particles) return;
+    
+    const colors = particles.geometry.attributes.color.array;
+    const color = new THREE.Color();
     const isDark = document.body.classList.contains('dark');
     
-    // Update background color
-    document.body.style.backgroundColor = isDark ? '#1a1a1a' : '#f8f9fa';
-    
-    // Update particle colors
-    if (particles) {
-        const colors = particles.geometry.attributes.color.array;
-        const color = new THREE.Color();
-        
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-            if (isDark) {
-                color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
-            } else {
-                color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
-            }
-            colors[i3] = color.r;
-            colors[i3 + 1] = color.g;
-            colors[i3 + 2] = color.b;
+    for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+        if (isDark) {
+            color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+        } else {
+            color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
         }
-        particles.geometry.attributes.color.needsUpdate = true;
+        colors[i3] = color.r;
+        colors[i3 + 1] = color.g;
+        colors[i3 + 2] = color.b;
     }
+    particles.geometry.attributes.color.needsUpdate = true;
 }
 
 function setupMobileMenu() {
