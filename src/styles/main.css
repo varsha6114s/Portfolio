@@ -7,6 +7,10 @@
     --secondary-color: #60a5fa;
     --text-light: #333;
     --text-dark: #fff;
+    --bg-light: #ffffff;
+    --bg-dark: #1a1a1a;
+    --card-bg-light: rgba(255, 255, 255, 0.1);
+    --card-bg-dark: rgba(0, 0, 0, 0.2);
     --warm-white: #f8f9fa;
     --dark-gray: #1a1a1a;
     --blue-500: #4a90e2;
@@ -19,13 +23,13 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: transparent !important;
+    background: var(--bg-light) !important;
     color: var(--text-light);
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 body.dark {
-    background: transparent !important;
+    background: var(--bg-dark) !important;
     color: var(--text-dark);
     color-scheme: dark;
 }
@@ -70,10 +74,15 @@ main {
 nav {
     position: relative;
     z-index: 10;
-    background: transparent !important;
+    background: var(--card-bg-light) !important;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+}
+
+body.dark nav {
+    background: var(--card-bg-dark) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Theme toggle */
@@ -84,9 +93,9 @@ nav {
     z-index: 20;
     padding: 0.75rem;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: var(--card-bg-light) !important;
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: all 0.3s ease;
     pointer-events: auto;
@@ -121,8 +130,8 @@ body.dark .fa-moon {
 }
 
 body.dark #theme-toggle {
-    background: rgba(0, 0, 0, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.1);
+    background: var(--card-bg-dark) !important;
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 body.dark #theme-toggle:hover {
@@ -131,7 +140,7 @@ body.dark #theme-toggle:hover {
 
 /* Glass cards */
 .glass-card {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: var(--card-bg-light) !important;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
@@ -140,8 +149,8 @@ body.dark #theme-toggle:hover {
 }
 
 body.dark .glass-card {
-    background: rgba(0, 0, 0, 0.1) !important;
-    border-color: rgba(255, 255, 255, 0.1);
+    background: var(--card-bg-dark) !important;
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Remove all background colors */
@@ -320,11 +329,10 @@ html {
 
 /* Buttons */
 button, a {
-    backdrop-filter: blur(8px);
-    background-color: initial !important;
+    transition: all 0.3s ease;
 }
 
-/* Ensure all backgrounds are transparent */
+/* Ensure all backgrounds are transparent except buttons */
 *:not(button):not(a) {
     background-color: transparent !important;
 }
@@ -334,7 +342,7 @@ button, a {
     color: var(--text-light) !important;
 }
 
-.dark .text-dark-gray {
+body.dark .text-dark-gray {
     color: var(--text-dark) !important;
 }
 
@@ -379,4 +387,15 @@ section.bg-white\/50 {
 
 section.bg-dark-gray\/50 {
     background: transparent !important;
+}
+
+/* New text colors */
+.text-gray-600 {
+    color: var(--text-light) !important;
+    opacity: 0.8;
+}
+
+body.dark .text-gray-600 {
+    color: var(--text-dark) !important;
+    opacity: 0.8;
 } 

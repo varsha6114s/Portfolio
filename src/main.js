@@ -155,13 +155,30 @@ function setTheme(isDark) {
     if (isDark) {
         body.classList.add('dark');
         document.documentElement.style.colorScheme = 'dark';
+        document.documentElement.setAttribute('data-theme', 'dark');
     } else {
         body.classList.remove('dark');
         document.documentElement.style.colorScheme = 'light';
+        document.documentElement.setAttribute('data-theme', 'light');
     }
+    
     // Update particle colors based on theme
-    if (window.particles) {
-        window.particles.material.color.set(isDark ? 0x93c5fd : 0xfbbf24);
+    if (particles) {
+        const colors = particles.geometry.attributes.color.array;
+        const color = new THREE.Color();
+        
+        for (let i = 0; i < particleCount; i++) {
+            const i3 = i * 3;
+            if (isDark) {
+                color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2); // Brighter colors for dark mode
+            } else {
+                color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2); // Darker colors for light mode
+            }
+            colors[i3] = color.r;
+            colors[i3 + 1] = color.g;
+            colors[i3 + 2] = color.b;
+        }
+        particles.geometry.attributes.color.needsUpdate = true;
     }
 }
 
