@@ -107,10 +107,20 @@ body.dark nav {
 
 .fa-sun {
     color: #fbbf24;
+    display: block;
 }
 
 .fa-moon {
     color: #93c5fd;
+    display: none;
+}
+
+body.dark .fa-sun {
+    display: none;
+}
+
+body.dark .fa-moon {
+    display: block;
 }
 
 /* Cards and containers */
