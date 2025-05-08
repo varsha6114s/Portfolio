@@ -145,59 +145,47 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-function setupThemeToggle() {
-    console.log('Setting up theme toggle...');
-    const themeToggle = document.getElementById('theme-toggle');
-    const sunIcon = themeToggle.querySelector('.fa-sun');
-    const moonIcon = themeToggle.querySelector('.fa-moon');
-    
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.body.classList.add('dark');
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
+// Theme toggle functionality
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Function to set theme
+function setTheme(isDark) {
+    if (isDark) {
+        body.classList.add('dark');
+        document.documentElement.style.colorScheme = 'dark';
     } else {
-        document.body.classList.remove('dark');
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
+        body.classList.remove('dark');
+        document.documentElement.style.colorScheme = 'light';
     }
-    
-    themeToggle.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        
-        // Update icons
-        sunIcon.style.display = isDark ? 'none' : 'block';
-        moonIcon.style.display = isDark ? 'block' : 'none';
-        
-        // Update particle colors
-        updateParticleColors();
-    });
-
-    console.log('Theme toggle setup complete');
+    // Update particle colors based on theme
+    if (window.particles) {
+        window.particles.material.color.set(isDark ? 0x93c5fd : 0xfbbf24);
+    }
 }
 
-function updateParticleColors() {
-    if (!particles) return;
-    
-    const colors = particles.geometry.attributes.color.array;
-    const color = new THREE.Color();
-    const isDark = document.body.classList.contains('dark');
-    
-    for (let i = 0; i < particleCount; i++) {
-        const i3 = i * 3;
-        if (isDark) {
-            color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
-        } else {
-            color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
-        }
-        colors[i3] = color.r;
-        colors[i3 + 1] = color.g;
-        colors[i3 + 2] = color.b;
-    }
-    particles.geometry.attributes.color.needsUpdate = true;
+// Check for saved theme preference or use system preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    setTheme(savedTheme === 'dark');
+} else {
+    setTheme(prefersDarkScheme.matches);
 }
+
+// Theme toggle click handler
+themeToggle.addEventListener('click', () => {
+    const isDark = body.classList.contains('dark');
+    setTheme(!isDark);
+    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+});
+
+// Listen for system theme changes
+prefersDarkScheme.addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        setTheme(e.matches);
+    }
+});
 
 function setupMobileMenu() {
     console.log('Setting up mobile menu...');

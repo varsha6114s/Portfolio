@@ -17,39 +17,30 @@
         }
     }
     </script>
-  <script type="module" crossorigin src="/Portfolio/assets/index-Cf9bOvIc.js"></script>
-  <link rel="stylesheet" crossorigin href="/Portfolio/assets/index-CwBgjsOm.css">
+  <script type="module" crossorigin src="/Portfolio/assets/index-tvzOH9nj.js"></script>
+  <link rel="stylesheet" crossorigin href="/Portfolio/assets/index-d93lO0PA.css">
 </head>
 <body>
-    <!-- 3D Background -->
-    <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
+    <div id="background-3d">
+        <canvas id="particle-canvas"></canvas>
+    </div>
 
-    <!-- Theme Toggle -->
-    <button id="theme-toggle">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-10 bg-transparent backdrop-blur-sm">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold text-dark-gray dark:text-white">VS</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Home</a>
-                    <a href="#about" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">About</a>
-                    <a href="#projects" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Projects</a>
-                    <a href="#contact" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Contact</a>
-                </div>
-                <button class="md:hidden text-dark-gray dark:text-white">
-                    <i class="fas fa-bars text-2xl"></i>
+    <nav class="fixed top-0 left-0 right-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-dark-gray">Varsha S</a>
+            <div class="flex items-center space-x-6">
+                <a href="#about" class="text-dark-gray hover:text-blue-500 transition-colors">About</a>
+                <a href="#projects" class="text-dark-gray hover:text-blue-500 transition-colors">Projects</a>
+                <a href="#contact" class="text-dark-gray hover:text-blue-500 transition-colors">Contact</a>
+                <button id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-20 relative z-1">
+    <main class="relative z-10">
         <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center justify-center relative">
             <div class="container mx-auto px-4 py-20">
