@@ -166,25 +166,26 @@ function createParticles() {
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
         
-        // Create a spiral galaxy effect
-        const radius = 20 + Math.random() * 10;
-        const theta = Math.random() * Math.PI * 2;
+        // Create a spiral galaxy effect with more dynamic distribution
+        const radius = 15 + Math.random() * 15;
+        const theta = Math.random() * Math.PI * 4;
         const phi = Math.acos(Math.random() * 2 - 1);
         
-        // Add some randomness to create a more organic look
-        const randomOffset = (Math.random() - 0.5) * 5;
+        // Add more randomness for organic look
+        const randomOffset = (Math.random() - 0.5) * 8;
+        const waveOffset = Math.sin(theta * 2) * 3;
         
-        positions[i3] = radius * Math.sin(phi) * Math.cos(theta) + randomOffset;
+        positions[i3] = radius * Math.sin(phi) * Math.cos(theta) + randomOffset + waveOffset;
         positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta) + randomOffset;
         positions[i3 + 2] = radius * Math.cos(phi) + randomOffset;
 
-        // Set colors based on theme with more vibrant colors
+        // Set more vibrant colors based on theme
         if (isDarkMode) {
-            // Use a blue-purple gradient for dark mode
-            color.setHSL(0.6 + Math.random() * 0.1, 0.8, 0.6 + Math.random() * 0.2);
+            // Use a rich blue-purple gradient for dark mode
+            color.setHSL(0.6 + Math.random() * 0.2, 0.9, 0.6 + Math.random() * 0.3);
         } else {
             // Use a warm orange-yellow gradient for light mode
-            color.setHSL(0.1 + Math.random() * 0.1, 0.8, 0.5 + Math.random() * 0.2);
+            color.setHSL(0.1 + Math.random() * 0.2, 0.9, 0.5 + Math.random() * 0.3);
         }
         colors[i3] = color.r;
         colors[i3 + 1] = color.g;
@@ -195,10 +196,10 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.3,
+        size: 0.4,
         vertexColors: true,
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.9,
         blending: THREE.AdditiveBlending,
         sizeAttenuation: true
     });
@@ -212,12 +213,17 @@ function animate() {
     requestAnimationFrame(animate);
     if (particles) {
         // Add more dynamic movement
-        particles.rotation.x += 0.0005;
-        particles.rotation.y += 0.0005;
+        particles.rotation.x += 0.0003;
+        particles.rotation.y += 0.0003;
         
         // Add a gentle wave motion
         const time = Date.now() * 0.001;
-        particles.position.y = Math.sin(time * 0.5) * 0.5;
+        particles.position.y = Math.sin(time * 0.3) * 0.8;
+        particles.position.x = Math.cos(time * 0.2) * 0.5;
+        
+        // Add subtle scaling effect
+        const scale = 1 + Math.sin(time * 0.5) * 0.05;
+        particles.scale.set(scale, scale, scale);
     }
     renderer.render(scene, camera);
 }
