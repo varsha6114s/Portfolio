@@ -11,9 +11,12 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
+      output: {
+        manualChunks: {
+          'three': ['three'],
+          'gsap': ['gsap']
+        }
+      }
     },
     sourcemap: true,
     emptyOutDir: true
