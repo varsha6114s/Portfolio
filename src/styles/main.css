@@ -13,6 +13,7 @@
     --dark-gray: #1a1a1a;
     --blue-500: #4a90e2;
     --blue-600: #357abd;
+    color-scheme: light;
 }
 
 body {
@@ -28,6 +29,7 @@ body {
 body.dark {
     background-color: var(--background-dark);
     color: var(--text-dark);
+    color-scheme: dark;
 }
 
 /* Background container */
@@ -284,19 +286,46 @@ html {
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 1rem;
     padding: 2rem;
-    transition: transform 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-card:hover {
     transform: translateY(-5px);
 }
 
+/* Theme transitions */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.glass-card {
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark mode styles */
+.dark {
+    color-scheme: dark;
+}
+
 .dark .glass-card {
-    background: rgba(26, 26, 26, 0.1);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode styles */
+:root {
+    color-scheme: light;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 } 

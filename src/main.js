@@ -145,41 +145,28 @@ function animate() {
 function setupThemeToggle() {
     console.log('Setting up theme toggle...');
     const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const sunIcon = document.getElementById('sun-icon');
-    const moonIcon = document.getElementById('moon-icon');
     const body = document.body;
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         body.classList.toggle('dark', savedTheme === 'dark');
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        body.classList.add('dark');
     }
     
     themeToggle.addEventListener('click', () => {
         body.classList.toggle('dark');
-        localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        const isDark = body.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
         updateSceneColors();
-        updateThemeIcon();
     });
-
-    // Check for saved theme preference
-    if (localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        body.classList.add('dark');
-    }
 
     console.log('Theme toggle setup complete');
 }
 
-function updateThemeIcon() {
-    const isDark = document.documentElement.classList.contains('dark');
-    sunIcon.classList.toggle('hidden', !isDark);
-    moonIcon.classList.toggle('hidden', isDark);
-}
-
 function updateSceneColors() {
-    const isDark = document.documentElement.classList.contains('dark');
+    const isDark = document.body.classList.contains('dark');
     
     // Update background color
     document.body.style.backgroundColor = isDark ? '#1a1a1a' : '#f8f9fa';
