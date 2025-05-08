@@ -1,6 +1,21 @@
-# Machine Learning Portfolio Website
+# Portfolio Website
 
-A modern, interactive portfolio website built with HTML, CSS, JavaScript, and Three.js. This README provides detailed information about the website structure and how to make changes.
+My personal portfolio website showcasing my projects and skills.
+
+## Features
+- Responsive design
+- Dark/Light mode
+- Interactive 3D background
+- Project showcase
+- Contact form
+
+## Technologies Used
+- HTML5
+- CSS3
+- JavaScript
+- Three.js
+- Vite
+- Tailwind CSS
 
 ## Table of Contents
 1. [Project Structure](#project-structure)
