@@ -124,9 +124,10 @@ function initThreeJS() {
 
         if (particles) {
             gsap.to(particles.rotation, {
-                x: mouseY * 0.5,
-                y: mouseX * 0.5,
-                duration: 2
+                x: mouseY * 0.3,
+                y: mouseX * 0.3,
+                duration: 2,
+                ease: "power2.out"
             });
         }
     });
@@ -161,22 +162,29 @@ function createParticles() {
     const color = new THREE.Color();
     const isDarkMode = document.body.classList.contains('dark');
 
+    // Create a more interesting particle distribution
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        // Create a sphere of particles
-        const radius = 20;
+        
+        // Create a spiral galaxy effect
+        const radius = 20 + Math.random() * 10;
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(Math.random() * 2 - 1);
         
-        positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        positions[i3 + 2] = radius * Math.cos(phi);
+        // Add some randomness to create a more organic look
+        const randomOffset = (Math.random() - 0.5) * 5;
+        
+        positions[i3] = radius * Math.sin(phi) * Math.cos(theta) + randomOffset;
+        positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta) + randomOffset;
+        positions[i3 + 2] = radius * Math.cos(phi) + randomOffset;
 
-        // Set colors based on theme
+        // Set colors based on theme with more vibrant colors
         if (isDarkMode) {
-            color.setHSL(0.6, 1, 0.7); // Brighter colors for dark mode
+            // Use a blue-purple gradient for dark mode
+            color.setHSL(0.6 + Math.random() * 0.1, 0.8, 0.6 + Math.random() * 0.2);
         } else {
-            color.setHSL(0.6, 1, 0.5); // Brighter colors for light mode
+            // Use a warm orange-yellow gradient for light mode
+            color.setHSL(0.1 + Math.random() * 0.1, 0.8, 0.5 + Math.random() * 0.2);
         }
         colors[i3] = color.r;
         colors[i3 + 1] = color.g;
@@ -187,10 +195,10 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.5, // Larger particles
+        size: 0.3,
         vertexColors: true,
         transparent: true,
-        opacity: 1,
+        opacity: 0.8,
         blending: THREE.AdditiveBlending,
         sizeAttenuation: true
     });
@@ -203,8 +211,13 @@ function createParticles() {
 function animate() {
     requestAnimationFrame(animate);
     if (particles) {
-        particles.rotation.x += 0.001;
-        particles.rotation.y += 0.001;
+        // Add more dynamic movement
+        particles.rotation.x += 0.0005;
+        particles.rotation.y += 0.0005;
+        
+        // Add a gentle wave motion
+        const time = Date.now() * 0.001;
+        particles.position.y = Math.sin(time * 0.5) * 0.5;
     }
     renderer.render(scene, camera);
 }
