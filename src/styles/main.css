@@ -14,6 +14,8 @@
     --accent-dark: #BE185D;
     --text-dark: #1F2937;
     --text-light: #F3F4F6;
+    --text-muted: #6B7280;
+    --text-muted-dark: #9CA3AF;
     --bg-light: #FFFFFF;
     --bg-dark: #111827;
     --glass-bg: rgba(255, 255, 255, 0.1);
@@ -33,13 +35,13 @@ body {
     padding: 0;
     min-height: 100vh;
     background: var(--bg-light) !important;
-    color: var(--text-light);
+    color: var(--text-dark);
     transition: all 0.3s ease;
 }
 
 body.dark {
     background: var(--bg-dark) !important;
-    color: var(--text-dark);
+    color: var(--text-light);
     color-scheme: dark;
 }
 
@@ -180,11 +182,13 @@ nav a, nav button, .glass-card, a, button {
     border-radius: 1rem;
     padding: 2rem;
     transition: all 0.3s ease;
+    color: var(--text-dark);
 }
 
 body.dark .glass-card {
     background: var(--card-bg-dark) !important;
     border-color: var(--border-dark);
+    color: var(--text-light);
 }
 
 body.dark .glass-card:hover {
@@ -431,13 +435,11 @@ section.bg-dark-gray\/50 {
 
 /* New text colors */
 .text-gray-600 {
-    color: var(--text-light) !important;
-    opacity: 0.8;
+    color: var(--text-muted) !important;
 }
 
 body.dark .text-gray-600 {
-    color: var(--text-dark) !important;
-    opacity: 0.7;
+    color: var(--text-muted-dark) !important;
 }
 
 /* Links and buttons */
@@ -447,7 +449,7 @@ a {
 }
 
 body.dark a {
-    color: var(--primary-light);
+    color: var(--accent-color);
 }
 
 a:hover {
@@ -455,7 +457,7 @@ a:hover {
 }
 
 body.dark a:hover {
-    color: var(--accent-color);
+    color: var(--accent-hover);
 }
 
 /* Navigation links */
@@ -535,4 +537,74 @@ body.dark textarea:focus {
 
 .btn-secondary:hover {
     background: var(--accent-hover);
+}
+
+/* Text colors */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark);
+}
+
+body.dark h1, 
+body.dark h2, 
+body.dark h3, 
+body.dark h4, 
+body.dark h5, 
+body.dark h6 {
+    color: var(--text-light);
+}
+
+/* Social links */
+.social-link {
+    color: var(--text-muted);
+}
+
+body.dark .social-link {
+    color: var(--text-muted-dark);
+}
+
+.social-link:hover {
+    color: var(--primary-color);
+}
+
+body.dark .social-link:hover {
+    color: var(--accent-color);
+}
+
+/* Contact section */
+.contact-info {
+    color: var(--text-muted);
+}
+
+body.dark .contact-info {
+    color: var(--text-muted-dark);
+}
+
+/* Ensure text is visible on glass backgrounds */
+.glass-card p,
+.glass-card span {
+    color: var(--text-dark);
+    opacity: 0.9;
+}
+
+body.dark .glass-card p,
+body.dark .glass-card span {
+    color: var(--text-light);
+    opacity: 0.9;
+}
+
+.glass-card h3 {
+    color: var(--primary-color);
+}
+
+body.dark .glass-card h3 {
+    color: var(--accent-color);
+}
+
+/* Project tags */
+.px-3.py-1.bg-purple-100 {
+    color: var(--primary-dark) !important;
+}
+
+body.dark .px-3.py-1.bg-purple-100 {
+    color: var(--primary-light) !important;
 } 
