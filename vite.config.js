@@ -11,12 +11,10 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     rollupOptions: {
-      output: {
-        manualChunks: {
-          'three': ['three'],
-          'gsap': ['gsap']
-        }
-      }
+      input: {
+        main: resolve(__dirname, 'index.html'),
+      },
+      external: ['three', 'gsap'],
     },
     sourcemap: true,
     emptyOutDir: true
@@ -31,5 +29,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['three', 'gsap']
-  }
+  },
+  publicDir: 'public'
 }); 

@@ -1,5 +1,14 @@
-/* Base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
+    --primary-color: #3b82f6;
+    --secondary-color: #60a5fa;
+    --background-light: #f8fafc;
+    --background-dark: #1a1a1a;
+    --text-light: #1e293b;
+    --text-dark: #f8fafc;
     --warm-white: #f8f9fa;
     --dark-gray: #1a1a1a;
     --blue-500: #4a90e2;
@@ -11,14 +20,14 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background-color: var(--warm-white);
-    color: var(--dark-gray);
+    background-color: var(--background-light);
+    color: var(--text-light);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.dark {
-    background-color: var(--dark-gray);
-    color: var(--warm-white);
+    background-color: var(--background-dark);
+    color: var(--text-dark);
 }
 
 /* Background container */
@@ -29,12 +38,6 @@ body.dark {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: var(--warm-white);
-    transition: background-color 0.3s ease;
-}
-
-body.dark #background-3d {
-    background-color: var(--dark-gray);
 }
 
 /* Canvas styles */
@@ -239,4 +242,61 @@ input:focus, textarea:focus {
         top: 0.5rem;
         right: 0.5rem;
     }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: var(--background-dark);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+}
+
+.dark .glass-card {
+    background: rgba(26, 26, 26, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
 } 
