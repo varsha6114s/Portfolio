@@ -3,14 +3,19 @@
 @tailwind utilities;
 
 :root {
+    /* Light theme colors */
     --primary-color: #3b82f6;
     --secondary-color: #60a5fa;
-    --text-light: #333;
-    --text-dark: #fff;
+    --text-light: #1a1a1a;
+    --text-dark: #f8f9fa;
     --bg-light: #ffffff;
-    --bg-dark: #1a1a1a;
+    --bg-dark: #0f172a;
     --card-bg-light: rgba(255, 255, 255, 0.1);
-    --card-bg-dark: rgba(0, 0, 0, 0.2);
+    --card-bg-dark: rgba(30, 41, 59, 0.4);
+    --accent-light: #fbbf24;
+    --accent-dark: #38bdf8;
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-dark: rgba(255, 255, 255, 0.05);
     --warm-white: #f8f9fa;
     --dark-gray: #1a1a1a;
     --blue-500: #4a90e2;
@@ -76,13 +81,13 @@ nav {
     z-index: 10;
     background: var(--card-bg-light) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-light);
     transition: all 0.3s ease;
 }
 
 body.dark nav {
     background: var(--card-bg-dark) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-dark);
 }
 
 /* Theme toggle */
@@ -95,14 +100,14 @@ body.dark nav {
     border-radius: 9999px;
     background: var(--card-bg-light) !important;
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-light);
     cursor: pointer;
     transition: all 0.3s ease;
     pointer-events: auto;
 }
 
 #theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
     transform: scale(1.1);
 }
 
@@ -112,12 +117,12 @@ body.dark nav {
 }
 
 .fa-sun {
-    color: #fbbf24;
+    color: var(--accent-light);
     display: block;
 }
 
 .fa-moon {
-    color: #93c5fd;
+    color: var(--accent-dark);
     display: none;
 }
 
@@ -131,18 +136,18 @@ body.dark .fa-moon {
 
 body.dark #theme-toggle {
     background: var(--card-bg-dark) !important;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-dark);
 }
 
 body.dark #theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.3) !important;
+    background: rgba(56, 189, 248, 0.2) !important;
 }
 
 /* Glass cards */
 .glass-card {
     background: var(--card-bg-light) !important;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-light);
     border-radius: 1rem;
     padding: 1.5rem;
     transition: all 0.3s ease;
@@ -150,7 +155,12 @@ body.dark #theme-toggle:hover {
 
 body.dark .glass-card {
     background: var(--card-bg-dark) !important;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-dark);
+}
+
+body.dark .glass-card:hover {
+    background: rgba(56, 189, 248, 0.1) !important;
+    border-color: rgba(56, 189, 248, 0.2);
 }
 
 /* Remove all background colors */
@@ -397,5 +407,73 @@ section.bg-dark-gray\/50 {
 
 body.dark .text-gray-600 {
     color: var(--text-dark) !important;
-    opacity: 0.8;
+    opacity: 0.7;
+}
+
+/* Links and buttons */
+a {
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+body.dark a {
+    color: var(--accent-dark);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+body.dark a:hover {
+    color: #7dd3fc;
+}
+
+/* Project tags */
+body.dark .px-3.py-1.bg-blue-100 {
+    background: rgba(56, 189, 248, 0.1) !important;
+    color: #7dd3fc !important;
+}
+
+body.dark .px-3.py-1.text-blue-800 {
+    color: #7dd3fc !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+body.dark ::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    background: var(--accent-dark);
+}
+
+/* Skill icons */
+body.dark .text-blue-500 {
+    color: var(--accent-dark) !important;
+}
+
+/* Contact form */
+body.dark input,
+body.dark textarea {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: var(--border-dark);
+    color: var(--text-dark);
+}
+
+body.dark input:focus,
+body.dark textarea:focus {
+    border-color: var(--accent-dark);
+}
+
+/* Add transition to all color changes */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 } 
