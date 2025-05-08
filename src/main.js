@@ -13,50 +13,47 @@ const particleCount = 2000;
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, setting up...');
+    initializeThreeJS();
     setupThemeToggle();
-    initThreeJS();
     setupMobileMenu();
     setupSmoothScroll();
 });
 
-function initThreeJS() {
+function initializeThreeJS() {
     console.log('Initializing Three.js...');
     
+    // Get the canvas element
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) {
+        console.error('Canvas element not found!');
+        return;
+    }
+    console.log('Canvas found, creating renderer...');
+
     // Create scene
     scene = new THREE.Scene();
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 30;
-
-    // Create renderer
-    const canvas = document.getElementById('background-3d');
-    if (!canvas) {
-        console.error('Canvas element not found!');
-        return;
-    }
+    camera.position.z = 5;
     
-    console.log('Canvas found, creating renderer...');
+    // Create renderer
     renderer = new THREE.WebGLRenderer({
-        canvas,
+        canvas: canvas,
         alpha: true,
         antialias: true
     });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
-    // Set canvas size
+    // Set canvas styles
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
     canvas.style.left = '0';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
-    canvas.style.zIndex = '0';
+    canvas.style.zIndex = '-1';
     
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    // Set initial background color based on theme
-    updateSceneColors();
-
     // Create particles
     createParticles();
 
@@ -68,29 +65,41 @@ function initThreeJS() {
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
+    // Mouse movement
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    function onMouseMove(event) {
+        mouseX = event.clientX / window.innerWidth - 0.5;
+        mouseY = event.clientY / window.innerHeight - 0.5;
+    }
+    
+    window.addEventListener('mousemove', onMouseMove);
+    
     // Handle window resize
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
-
-    // Handle mouse movement
-    document.addEventListener('mousemove', (event) => {
-        const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-        const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-
+    
+    // Animation
+    function animate() {
+        requestAnimationFrame(animate);
+        
         if (particles) {
-            gsap.to(particles.rotation, {
-                x: mouseY * 0.1,
-                y: mouseX * 0.1,
-                duration: 2
-            });
+            particles.rotation.x += 0.001;
+            particles.rotation.y += 0.001;
+            
+            // Add mouse interaction
+            particles.rotation.x += mouseY * 0.0005;
+            particles.rotation.y += mouseX * 0.0005;
         }
-    });
-
+        
+        renderer.render(scene, camera);
+    }
+    
     console.log('Three.js initialization complete');
-    // Start animation loop
     animate();
 }
 
@@ -104,9 +113,9 @@ function createParticles() {
 
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] = (Math.random() - 0.5) * 50;
-        positions[i3 + 1] = (Math.random() - 0.5) * 50;
-        positions[i3 + 2] = (Math.random() - 0.5) * 50;
+        positions[i3] = (Math.random() - 0.5) * 10;
+        positions[i3 + 1] = (Math.random() - 0.5) * 10;
+        positions[i3 + 2] = (Math.random() - 0.5) * 10;
 
         // Set colors based on theme
         if (isDarkMode) {
@@ -123,7 +132,7 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.1,
+        size: 0.02,
         vertexColors: true,
         transparent: true,
         opacity: 0.8
@@ -133,38 +142,33 @@ function createParticles() {
     scene.add(particles);
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    particles.rotation.x += 0.0005;
-    particles.rotation.y += 0.0005;
-    renderer.render(scene, camera);
-}
-
 function setupThemeToggle() {
+    console.log('Setting up theme toggle...');
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const sunIcon = document.getElementById('sun-icon');
     const moonIcon = document.getElementById('moon-icon');
-
-    // Check system preference
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
+    const html = document.documentElement;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        html.classList.toggle('dark', savedTheme === 'dark');
     }
-
+    
     themeToggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
+        html.classList.toggle('dark');
+        localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         updateSceneColors();
         updateThemeIcon();
     });
+    console.log('Theme toggle setup complete');
+}
 
-    function updateThemeIcon() {
-        const isDark = document.documentElement.classList.contains('dark');
-        sunIcon.classList.toggle('hidden', !isDark);
-        moonIcon.classList.toggle('hidden', isDark);
-    }
-
-    // Initial icon state
-    updateThemeIcon();
+function updateThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark');
+    sunIcon.classList.toggle('hidden', !isDark);
+    moonIcon.classList.toggle('hidden', isDark);
 }
 
 function updateSceneColors() {
@@ -194,15 +198,29 @@ function updateSceneColors() {
 }
 
 function setupMobileMenu() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
+    console.log('Setting up mobile menu...');
+    const menuButton = document.querySelector('.md\\:hidden');
+    const navLinks = document.querySelector('.hidden.md\\:flex');
+    
+    if (menuButton && navLinks) {
+        menuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-16');
+            navLinks.classList.toggle('left-0');
+            navLinks.classList.toggle('right-0');
+            navLinks.classList.toggle('bg-white');
+            navLinks.classList.toggle('dark:bg-dark-gray');
+            navLinks.classList.toggle('p-4');
+        });
+    }
+    console.log('Mobile menu setup complete');
 }
 
 function setupSmoothScroll() {
+    console.log('Setting up smooth scroll...');
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -214,4 +232,5 @@ function setupSmoothScroll() {
             }
         });
     });
+    console.log('Smooth scroll setup complete');
 } 
