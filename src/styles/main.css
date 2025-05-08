@@ -5,8 +5,6 @@
 :root {
     --primary-color: #3b82f6;
     --secondary-color: #60a5fa;
-    --bg-light: #f8f9fa;
-    --bg-dark: #1a1a1a;
     --text-light: #333;
     --text-dark: #fff;
     --warm-white: #f8f9fa;
@@ -21,13 +19,13 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background-color: transparent !important;
+    background: transparent !important;
     color: var(--text-light);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 body.dark {
-    background-color: transparent !important;
+    background: transparent !important;
     color: var(--text-dark);
     color-scheme: dark;
 }
@@ -57,32 +55,25 @@ body.dark {
 
 /* Section backgrounds */
 section {
+    background: transparent !important;
     position: relative;
     z-index: 1;
-    background: transparent !important;
 }
 
-.bg-white\/50 {
-    background-color: transparent !important;
-}
-
-.dark .bg-white\/50 {
-    background-color: transparent !important;
+/* Main content */
+main {
+    position: relative;
+    z-index: 1;
 }
 
 /* Navigation */
 nav {
     position: relative;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.5) !important;
+    z-index: 10;
+    background: transparent !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    transition: background-color 0.3s ease;
-}
-
-body.dark nav {
-    background: rgba(0, 0, 0, 0.5) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
 /* Theme toggle */
@@ -90,10 +81,10 @@ body.dark nav {
     position: fixed;
     top: 1rem;
     right: 1rem;
-    z-index: 3;
+    z-index: 20;
     padding: 0.75rem;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
@@ -128,14 +119,29 @@ body.dark .fa-moon {
     display: block;
 }
 
-/* Cards and containers */
-.bg-white\/10 {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
+/* Glass cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
 }
 
-body.dark .bg-white\/10 {
-    background-color: rgba(26, 26, 26, 0.1);
+body.dark .glass-card {
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Remove all background colors */
+.bg-white\/50,
+.bg-white\/80,
+.bg-dark-gray\/50,
+.bg-dark-gray\/80,
+.bg-white,
+.bg-dark-gray {
+    background: transparent !important;
 }
 
 /* Utility classes */
@@ -302,17 +308,31 @@ html {
     animation: fadeIn 0.5s ease-out forwards;
 }
 
-.glass-card {
-    background: rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+/* Buttons */
+button, a {
+    backdrop-filter: blur(8px);
 }
 
-.glass-card:hover {
-    transform: translateY(-5px);
+/* Ensure all backgrounds are transparent */
+* {
+    background-color: transparent !important;
+}
+
+/* Keep text colors */
+.text-dark-gray {
+    color: var(--text-light) !important;
+}
+
+.dark .text-dark-gray {
+    color: var(--text-dark) !important;
+}
+
+.text-white {
+    color: var(--text-dark) !important;
+}
+
+.dark .text-white {
+    color: var(--text-light) !important;
 }
 
 /* Theme transitions */
@@ -322,26 +342,6 @@ body {
 
 .glass-card {
     transition: all 0.3s ease;
-}
-
-/* Dark mode styles */
-.dark {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-.dark #theme-toggle {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.dark #theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.dark .glass-card {
-    background: rgba(0, 0, 0, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Light mode styles */
