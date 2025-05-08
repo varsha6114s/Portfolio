@@ -12,23 +12,18 @@ const particleCount = 2000;
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, setting up...');
-    try {
-        initThreeJS();
-        setupThemeToggle();
-        setupMobileMenu();
-        setupSmoothScroll();
-    } catch (error) {
-        console.error('Error during initialization:', error);
-    }
+    console.log('Initializing...');
+    initThreeJS();
+    setupThemeToggle();
+    setupMobileMenu();
+    setupSmoothScroll();
 });
 
 function initThreeJS() {
-    console.log('Initializing Three.js...');
+    console.log('Setting up Three.js...');
     
     // Create scene
     scene = new THREE.Scene();
-    scene.background = null; // Make scene transparent
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -37,11 +32,10 @@ function initThreeJS() {
     // Create renderer
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) {
-        console.error('Canvas element not found!');
+        console.error('Canvas not found!');
         return;
     }
-    
-    console.log('Canvas found, creating renderer...');
+
     renderer = new THREE.WebGLRenderer({ 
         canvas,
         alpha: true,
@@ -50,7 +44,6 @@ function initThreeJS() {
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0); // Set clear color to transparent
     
     // Create particles
     createParticles();
@@ -84,7 +77,7 @@ function initThreeJS() {
         }
     });
 
-    console.log('Three.js initialization complete');
+    console.log('Three.js setup complete');
     // Start animation loop
     animate();
 }
@@ -121,8 +114,7 @@ function createParticles() {
         size: 0.1,
         vertexColors: true,
         transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending
+        opacity: 0.8
     });
 
     particles = new THREE.Points(geometry, material);
