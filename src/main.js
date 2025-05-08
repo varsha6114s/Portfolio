@@ -1,6 +1,6 @@
 // Import dependencies
-import * as THREE from 'three';
-import { gsap } from 'gsap';
+import * as THREE from 'https://unpkg.com/three@0.157.0/build/three.module.js';
+import { gsap } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
 import './styles/main.css';
 
 // Debug logging
@@ -43,20 +43,10 @@ function initThreeJS() {
         antialias: true 
     });
     
-    // Set canvas size
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.zIndex = '-1';
-    
+    // Set canvas size and styles
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    // Set initial background color based on theme
-    updateSceneColors();
-
+    
     // Create particles
     createParticles();
 
@@ -100,7 +90,7 @@ function createParticles() {
     const colors = new Float32Array(particleCount * 3);
 
     const color = new THREE.Color();
-    const isDarkMode = document.documentElement.classList.contains('dark');
+    const isDarkMode = document.body.classList.contains('dark');
 
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
