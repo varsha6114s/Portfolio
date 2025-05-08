@@ -8,7 +8,7 @@ console.log('Initializing portfolio...');
 // Initialize variables
 let scene, camera, renderer, particles;
 let isDarkMode = false;
-const particleCount = 3000; // Increased particle count
+const particleCount = 5000; // Increased particle count for more density
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,7 +31,7 @@ function initThreeJS() {
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 50; // Moved camera back for better view
+    camera.position.z = 40; // Adjusted camera position
 
     // Create renderer
     const canvas = document.getElementById('particle-canvas');
@@ -48,16 +48,16 @@ function initThreeJS() {
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0); // Make background transparent
+    renderer.setClearColor(0x000000, 0);
 
     // Create particles
     createParticles();
 
     // Add lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Increased light intensity
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 1);
+    const pointLight = new THREE.PointLight(0xffffff, 1.5); // Increased light intensity
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
@@ -75,8 +75,8 @@ function initThreeJS() {
 
         if (particles) {
             gsap.to(particles.rotation, {
-                x: mouseY * 0.2, // Increased rotation effect
-                y: mouseX * 0.2,
+                x: mouseY * 0.3, // Increased rotation effect
+                y: mouseX * 0.3,
                 duration: 2
             });
         }
@@ -98,7 +98,7 @@ function createParticles() {
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
         // Create a sphere of particles
-        const radius = 30;
+        const radius = 25; // Reduced radius for better visibility
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(Math.random() * 2 - 1);
         
@@ -108,9 +108,9 @@ function createParticles() {
 
         // Set colors based on theme
         if (isDarkMode) {
-            color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+            color.setHSL(0.6, 0.9, 0.6 + Math.random() * 0.2); // Brighter colors for dark mode
         } else {
-            color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
+            color.setHSL(0.6, 0.9, 0.4 + Math.random() * 0.2); // Brighter colors for light mode
         }
         colors[i3] = color.r;
         colors[i3 + 1] = color.g;
@@ -121,11 +121,12 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.2, // Increased particle size
+        size: 0.3, // Increased particle size
         vertexColors: true,
         transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending // Add additive blending for better visibility
+        opacity: 0.9, // Increased opacity
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
     });
 
     particles = new THREE.Points(geometry, material);
@@ -135,8 +136,8 @@ function createParticles() {
 function animate() {
     requestAnimationFrame(animate);
     if (particles) {
-        particles.rotation.x += 0.0005;
-        particles.rotation.y += 0.0005;
+        particles.rotation.x += 0.0003; // Slower rotation
+        particles.rotation.y += 0.0003;
     }
     renderer.render(scene, camera);
 }
