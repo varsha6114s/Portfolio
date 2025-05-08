@@ -13,40 +13,37 @@ const particleCount = 2000;
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, setting up...');
-    initializeThreeJS();
+    initThreeJS();
     setupThemeToggle();
     setupMobileMenu();
     setupSmoothScroll();
 });
 
-function initializeThreeJS() {
+function initThreeJS() {
     console.log('Initializing Three.js...');
     
-    // Get the canvas element
-    const canvas = document.getElementById('particle-canvas');
-    if (!canvas) {
-        console.error('Canvas element not found!');
-        return;
-    }
-    console.log('Canvas found, creating renderer...');
-
     // Create scene
     scene = new THREE.Scene();
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
-    
+    camera.position.z = 30;
+
     // Create renderer
-    renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        alpha: true,
-        antialias: true
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) {
+        console.error('Canvas element not found!');
+        return;
+    }
     
-    // Set canvas styles
+    console.log('Canvas found, creating renderer...');
+    renderer = new THREE.WebGLRenderer({ 
+        canvas,
+        alpha: true,
+        antialias: true 
+    });
+    
+    // Set canvas size
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
     canvas.style.left = '0';
@@ -54,6 +51,12 @@ function initializeThreeJS() {
     canvas.style.height = '100%';
     canvas.style.zIndex = '-1';
     
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Set initial background color based on theme
+    updateSceneColors();
+
     // Create particles
     createParticles();
 
@@ -65,41 +68,29 @@ function initializeThreeJS() {
     pointLight.position.set(10, 10, 10);
     scene.add(pointLight);
 
-    // Mouse movement
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    function onMouseMove(event) {
-        mouseX = event.clientX / window.innerWidth - 0.5;
-        mouseY = event.clientY / window.innerHeight - 0.5;
-    }
-    
-    window.addEventListener('mousemove', onMouseMove);
-    
     // Handle window resize
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
-    
-    // Animation
-    function animate() {
-        requestAnimationFrame(animate);
-        
+
+    // Handle mouse movement
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
         if (particles) {
-            particles.rotation.x += 0.001;
-            particles.rotation.y += 0.001;
-            
-            // Add mouse interaction
-            particles.rotation.x += mouseY * 0.0005;
-            particles.rotation.y += mouseX * 0.0005;
+            gsap.to(particles.rotation, {
+                x: mouseY * 0.1,
+                y: mouseX * 0.1,
+                duration: 2
+            });
         }
-        
-        renderer.render(scene, camera);
-    }
-    
+    });
+
     console.log('Three.js initialization complete');
+    // Start animation loop
     animate();
 }
 
@@ -113,9 +104,9 @@ function createParticles() {
 
     for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] = (Math.random() - 0.5) * 10;
-        positions[i3 + 1] = (Math.random() - 0.5) * 10;
-        positions[i3 + 2] = (Math.random() - 0.5) * 10;
+        positions[i3] = (Math.random() - 0.5) * 50;
+        positions[i3 + 1] = (Math.random() - 0.5) * 50;
+        positions[i3 + 2] = (Math.random() - 0.5) * 50;
 
         // Set colors based on theme
         if (isDarkMode) {
@@ -132,7 +123,7 @@ function createParticles() {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 0.02,
+        size: 0.1,
         vertexColors: true,
         transparent: true,
         opacity: 0.8
@@ -140,6 +131,15 @@ function createParticles() {
 
     particles = new THREE.Points(geometry, material);
     scene.add(particles);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    if (particles) {
+        particles.rotation.x += 0.0005;
+        particles.rotation.y += 0.0005;
+    }
+    renderer.render(scene, camera);
 }
 
 function setupThemeToggle() {
@@ -173,27 +173,27 @@ function updateThemeIcon() {
 
 function updateSceneColors() {
     const isDark = document.documentElement.classList.contains('dark');
-    if (scene) {
-        scene.background = new THREE.Color(isDark ? '#1a1a1a' : '#ffffff');
+    
+    // Update background color
+    document.body.style.backgroundColor = isDark ? '#1a1a1a' : '#f8f9fa';
+    
+    // Update particle colors
+    if (particles) {
+        const colors = particles.geometry.attributes.color.array;
+        const color = new THREE.Color();
         
-        // Update particle colors
-        if (particles) {
-            const colors = particles.geometry.attributes.color.array;
-            const color = new THREE.Color();
-            
-            for (let i = 0; i < particleCount; i++) {
-                const i3 = i * 3;
-                if (isDark) {
-                    color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
-                } else {
-                    color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
-                }
-                colors[i3] = color.r;
-                colors[i3 + 1] = color.g;
-                colors[i3 + 2] = color.b;
+        for (let i = 0; i < particleCount; i++) {
+            const i3 = i * 3;
+            if (isDark) {
+                color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+            } else {
+                color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
             }
-            particles.geometry.attributes.color.needsUpdate = true;
+            colors[i3] = color.r;
+            colors[i3 + 1] = color.g;
+            colors[i3 + 2] = color.b;
         }
+        particles.geometry.attributes.color.needsUpdate = true;
     }
 }
 
