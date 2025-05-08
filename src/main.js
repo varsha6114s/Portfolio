@@ -7,20 +7,71 @@ console.log('Initializing portfolio...');
 
 // Initialize variables
 let scene, camera, renderer, particles;
-const particleCount = 2000; // Reduced for better performance
+const particleCount = 2000;
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing...');
-    if (typeof gsap === 'undefined') {
-        console.error('GSAP not loaded!');
-        return;
+// Theme functionality
+function initializeTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function setTheme(isDark) {
+        if (isDark) {
+            body.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            body.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        // Update particle colors based on theme
+        if (particles) {
+            const colors = particles.geometry.attributes.color.array;
+            const color = new THREE.Color();
+            
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                if (isDark) {
+                    color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+                } else {
+                    color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
+                }
+                colors[i3] = color.r;
+                colors[i3 + 1] = color.g;
+                colors[i3 + 2] = color.b;
+            }
+            particles.geometry.attributes.color.needsUpdate = true;
+        }
     }
-    initThreeJS();
-    setupMobileMenu();
-    setupSmoothScroll();
-});
 
+    // Initialize theme based on saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme === 'dark');
+    } else {
+        setTheme(prefersDarkScheme.matches);
+    }
+
+    // Theme toggle click handler
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark');
+            setTheme(!isDark);
+            localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+        });
+    }
+
+    // Listen for system theme changes
+    prefersDarkScheme.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches);
+        }
+    });
+}
+
+// Three.js initialization
 function initThreeJS() {
     console.log('Setting up Three.js...');
     
@@ -37,7 +88,6 @@ function initThreeJS() {
         console.error('Canvas not found!');
         return;
     }
-    console.log('Canvas found:', canvas);
 
     renderer = new THREE.WebGLRenderer({ 
         canvas,
@@ -81,10 +131,26 @@ function initThreeJS() {
         }
     });
 
-    console.log('Three.js setup complete');
     // Start animation loop
     animate();
 }
+
+// Initialize everything when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing...');
+    
+    // Check for GSAP
+    if (typeof gsap === 'undefined') {
+        console.error('GSAP not loaded!');
+        return;
+    }
+
+    // Initialize components
+    initializeTheme();
+    initThreeJS();
+    setupMobileMenu();
+    setupSmoothScroll();
+});
 
 function createParticles() {
     console.log('Creating particles...');
@@ -142,67 +208,6 @@ function animate() {
     }
     renderer.render(scene, camera);
 }
-
-// Theme toggle functionality
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-// Function to set theme
-function setTheme(isDark) {
-    if (isDark) {
-        body.classList.add('dark');
-        document.documentElement.style.colorScheme = 'dark';
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        body.classList.remove('dark');
-        document.documentElement.style.colorScheme = 'light';
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
-    
-    // Update particle colors based on theme
-    if (particles) {
-        const colors = particles.geometry.attributes.color.array;
-        const color = new THREE.Color();
-        
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-            if (isDark) {
-                color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2); // Brighter colors for dark mode
-            } else {
-                color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2); // Darker colors for light mode
-            }
-            colors[i3] = color.r;
-            colors[i3 + 1] = color.g;
-            colors[i3 + 2] = color.b;
-        }
-        particles.geometry.attributes.color.needsUpdate = true;
-    }
-}
-
-// Initialize theme based on saved preference or system preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    setTheme(savedTheme === 'dark');
-} else {
-    setTheme(prefersDarkScheme.matches);
-}
-
-// Theme toggle click handler
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const isDark = body.classList.contains('dark');
-        setTheme(!isDark);
-        localStorage.setItem('theme', !isDark ? 'dark' : 'light');
-    });
-}
-
-// Listen for system theme changes
-prefersDarkScheme.addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-        setTheme(e.matches);
-    }
-});
 
 function setupMobileMenu() {
     console.log('Setting up mobile menu...');
