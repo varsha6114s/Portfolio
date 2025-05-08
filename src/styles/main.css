@@ -12,10 +12,10 @@
     --accent-hover: #DB2777;
     --accent-light: #F472B6;
     --accent-dark: #BE185D;
-    --text-dark: #1F2937;
-    --text-light: #F3F4F6;
-    --text-muted: #6B7280;
-    --text-muted-dark: #9CA3AF;
+    --text-dark: #000000;
+    --text-light: #FFFFFF;
+    --text-muted: #4B5563;
+    --text-muted-dark: #E5E7EB;
     --bg-light: #FFFFFF;
     --bg-dark: #111827;
     --glass-bg: rgba(255, 255, 255, 0.1);
@@ -37,12 +37,14 @@ body {
     background: var(--bg-light) !important;
     color: var(--text-dark);
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 body.dark {
     background: var(--bg-dark) !important;
     color: var(--text-light);
     color-scheme: dark;
+    font-weight: 400;
 }
 
 /* Background container */
@@ -176,9 +178,9 @@ nav a, nav button, .glass-card, a, button {
 
 /* Glass cards */
 .glass-card {
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 1rem;
     padding: 2rem;
     transition: all 0.3s ease;
@@ -186,8 +188,8 @@ nav a, nav button, .glass-card, a, button {
 }
 
 body.dark .glass-card {
-    background: var(--card-bg-dark) !important;
-    border-color: var(--border-dark);
+    background: rgba(17, 24, 39, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-light);
 }
 
@@ -383,11 +385,13 @@ button, a {
 
 /* Keep text colors */
 .text-dark-gray {
-    color: var(--text-light) !important;
+    color: var(--text-dark) !important;
+    font-weight: 600;
 }
 
 body.dark .text-dark-gray {
-    color: var(--text-dark) !important;
+    color: var(--text-light) !important;
+    font-weight: 500;
 }
 
 .text-white {
@@ -446,10 +450,12 @@ body.dark .text-gray-600 {
 a {
     color: var(--primary-color);
     transition: all 0.3s ease;
+    font-weight: 600;
 }
 
 body.dark a {
     color: var(--accent-color);
+    font-weight: 500;
 }
 
 a:hover {
@@ -464,6 +470,7 @@ body.dark a:hover {
 nav a {
     color: var(--text-dark);
     transition: color 0.3s ease;
+    font-weight: 600;
 }
 
 nav a:hover {
@@ -472,6 +479,7 @@ nav a:hover {
 
 body.dark nav a {
     color: var(--text-light);
+    font-weight: 500;
 }
 
 body.dark nav a:hover {
@@ -542,6 +550,7 @@ body.dark textarea:focus {
 /* Text colors */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-dark);
+    font-weight: 700;
 }
 
 body.dark h1, 
@@ -551,15 +560,18 @@ body.dark h4,
 body.dark h5, 
 body.dark h6 {
     color: var(--text-light);
+    font-weight: 600;
 }
 
 /* Social links */
 .social-link {
-    color: var(--text-muted);
+    color: var(--text-dark);
+    font-weight: 500;
 }
 
 body.dark .social-link {
-    color: var(--text-muted-dark);
+    color: var(--text-light);
+    font-weight: 400;
 }
 
 .social-link:hover {
@@ -583,28 +595,55 @@ body.dark .contact-info {
 .glass-card p,
 .glass-card span {
     color: var(--text-dark);
+    font-weight: 500;
     opacity: 0.9;
 }
 
 body.dark .glass-card p,
 body.dark .glass-card span {
     color: var(--text-light);
+    font-weight: 400;
     opacity: 0.9;
 }
 
 .glass-card h3 {
     color: var(--primary-color);
+    font-weight: 700;
 }
 
 body.dark .glass-card h3 {
     color: var(--accent-color);
+    font-weight: 600;
 }
 
 /* Project tags */
 .px-3.py-1.bg-purple-100 {
+    background: rgba(139, 92, 246, 0.2) !important;
     color: var(--primary-dark) !important;
+    font-weight: 600;
 }
 
 body.dark .px-3.py-1.bg-purple-100 {
-    color: var(--primary-light) !important;
+    background: rgba(236, 72, 153, 0.2) !important;
+    color: var(--accent-light) !important;
+    font-weight: 500;
+}
+
+/* Add text shadow for better visibility */
+h1, h2, h3 {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure buttons have good contrast */
+button, 
+.btn-primary, 
+.btn-secondary {
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 } 
