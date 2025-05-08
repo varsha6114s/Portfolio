@@ -28,6 +28,7 @@ function initThreeJS() {
     
     // Create scene
     scene = new THREE.Scene();
+    scene.background = null; // Make scene transparent
     
     // Create camera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -49,6 +50,7 @@ function initThreeJS() {
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0); // Set clear color to transparent
     
     // Create particles
     createParticles();
@@ -119,7 +121,8 @@ function createParticles() {
         size: 0.1,
         vertexColors: true,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
     });
 
     particles = new THREE.Points(geometry, material);
