@@ -6,7 +6,7 @@ export default defineConfig({
     port: 3000,
     open: true
   },
-  base: '/portfolio/',
+  base: '/Portfolio/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -14,9 +14,19 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
       },
-      external: ['three', 'gsap'],
+      output: {
+        manualChunks: {
+          vendor: ['three', 'gsap'],
+        },
+      },
     },
-    sourcemap: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
+    sourcemap: false,
     emptyOutDir: true
   },
   css: {
