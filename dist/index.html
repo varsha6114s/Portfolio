@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Varsha S - Portfolio</title>
-    <link rel="stylesheet" href="/portfolio/assets/main-CXR8BowU.css">
+    <link rel="stylesheet" href="/Portfolio/assets/main-CXR8BowU.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script type="module" crossorigin src="/portfolio/assets/main-DN9rCo_s.js"></script>
-  <link rel="stylesheet" crossorigin href="/portfolio/assets/main-CXR8BowU.css">
+  <script type="module" crossorigin src="/Portfolio/assets/main-B6JAvYjF.js"></script>
+  <link rel="modulepreload" crossorigin href="/Portfolio/assets/vendor-Cr72Gup6.js">
+  <link rel="stylesheet" crossorigin href="/Portfolio/assets/main-CyP5hXaJ.css">
 </head>
 <body class="bg-warm-white dark:bg-dark-gray">
     <!-- 3D Background -->
@@ -30,8 +31,8 @@
             <div class="flex justify-between items-center">
                 <a href="#" class="text-2xl font-bold text-dark-gray dark:text-white">VS</a>
                 <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Home</a>
                     <a href="#about" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">About</a>
-                    <a href="#experience" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Experience</a>
                     <a href="#projects" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Projects</a>
                     <a href="#contact" class="text-dark-gray dark:text-white hover:text-blue-500 dark:hover:text-blue-400">Contact</a>
                 </div>
@@ -45,17 +46,17 @@
     <!-- Main Content -->
     <main class="pt-20">
         <!-- Hero Section -->
-        <section id="about" class="min-h-screen flex items-center justify-center relative">
+        <section id="home" class="min-h-screen flex items-center justify-center relative">
             <div class="container mx-auto px-4 py-20">
                 <div class="flex flex-col md:flex-row items-center gap-12">
                     <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-white dark:border-dark-gray shadow-lg">
-                        <img src="/portfolio/assets/images/profile.jpg" alt="Varsha S" class="w-full h-full object-cover">
+                        <img src="/Portfolio/assets/images/profile.jpg" alt="Varsha S" class="w-full h-full object-cover">
                     </div>
                     <div class="flex-1 text-center md:text-left">
                         <h1 class="text-4xl md:text-5xl font-bold text-dark-gray dark:text-white mb-4">Hi, I'm Varsha S</h1>
-                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Full Stack Developer</p>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Machine Learning Enthusiast & Data Science Student</p>
                         <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <a href="#contact" class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">Get in Touch</a>
+                            <a href="#contact" class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">Contact Me</a>
                             <a href="#projects" class="px-6 py-3 bg-white dark:bg-dark-gray text-blue-500 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">View Projects</a>
                         </div>
                     </div>
@@ -63,46 +64,217 @@
             </div>
         </section>
 
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white/50 dark:bg-dark-gray/50 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-dark-gray dark:text-white mb-12">About Me</h2>
+                <div class="max-w-3xl mx-auto text-center">
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                        Hello! I'm Varsha S, a passionate Machine Learning enthusiast and Data Science student. I love exploring the fascinating world of AI, building predictive models, and uncovering insights from complex datasets.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-12">
+                        With a strong foundation in statistical analysis and machine learning algorithms, I create intelligent solutions that solve real-world problems. My journey in data science combines technical expertise with creative problem-solving to deliver impactful results.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div class="glass-card">
+                            <h3 class="text-2xl font-bold text-blue-500">2+</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Years Experience</p>
+                        </div>
+                        <div class="glass-card">
+                            <h3 class="text-2xl font-bold text-blue-500">15+</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Projects Completed</p>
+                        </div>
+                        <div class="glass-card">
+                            <h3 class="text-2xl font-bold text-blue-500">10+</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Happy Clients</p>
+                        </div>
+                        <div class="glass-card">
+                            <h3 class="text-2xl font-bold text-blue-500">5+</h3>
+                            <p class="text-gray-600 dark:text-gray-300">Technologies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-white/50 dark:bg-dark-gray/50 backdrop-blur-sm">
+        <section id="skills" class="py-20">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-dark-gray dark:text-white mb-12">Skills</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <!-- Add your skills here -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div class="glass-card">
+                        <i class="fas fa-brain text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Machine Learning</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fas fa-network-wired text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Deep Learning</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fas fa-chart-bar text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Data Analysis</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fas fa-language text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">NLP</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fas fa-eye text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Computer Vision</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fas fa-calculator text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Statistical Analysis</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fab fa-python text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Python & ML Libraries</h3>
+                    </div>
+                    <div class="glass-card">
+                        <i class="fas fa-cloud text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-2">Big Data & Cloud</h3>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-20">
+        <section id="projects" class="py-20 bg-white/50 dark:bg-dark-gray/50 backdrop-blur-sm">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-dark-gray dark:text-white mb-12">Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Add your projects here -->
+                    <!-- Sentiment Analysis Project -->
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Sentiment Analysis System</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Built a deep learning model to analyze customer reviews and social media sentiment using NLP techniques and BERT architecture.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">NLP</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">BERT</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Python</span>
+                        </div>
+                        <a href="#" class="inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- Medical Image Classification -->
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Medical Image Classification</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Developed a CNN-based system for automated classification of medical images with 95% accuracy using transfer learning.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">CNN</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Transfer Learning</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">TensorFlow</span>
+                        </div>
+                        <a href="#" class="inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- Stock Price Prediction -->
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Stock Price Prediction</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Created an LSTM-based model for predicting stock prices using historical data and technical indicators.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">LSTM</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Time Series</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">PyTorch</span>
+                        </div>
+                        <a href="#" class="inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- Fraud Detection System -->
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Fraud Detection System</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Implemented an anomaly detection system using Isolation Forest and Autoencoders for detecting fraudulent transactions.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Anomaly Detection</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Autoencoders</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Scikit-learn</span>
+                        </div>
+                        <a href="#" class="inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- Customer Churn Prediction -->
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Customer Churn Prediction</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Built a predictive model using XGBoost to identify customers at risk of churning with 87% accuracy.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">XGBoost</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Feature Engineering</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Pandas</span>
+                        </div>
+                        <a href="#" class="inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <!-- Movie Recommendation System -->
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Movie Recommendation System</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Developed a hybrid recommendation system combining collaborative filtering and content-based approaches.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Recommendation</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Matrix Factorization</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Surprise</span>
+                        </div>
+                        <a href="#" class="inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-white/50 dark:bg-dark-gray/50 backdrop-blur-sm">
+        <section id="contact" class="py-20">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center text-dark-gray dark:text-white mb-12">Get in Touch</h2>
+                <h2 class="text-3xl font-bold text-center text-dark-gray dark:text-white mb-12">Let's Connect</h2>
                 <div class="max-w-2xl mx-auto">
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-dark-gray dark:text-white mb-2">Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-dark-gray dark:text-white">
+                    <div class="glass-card mb-8">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-envelope mr-2"></i> your.email@example.com
+                            </p>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-phone mr-2"></i> +1234567890
+                            </p>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-map-marker-alt mr-2"></i> Your Location
+                            </p>
                         </div>
-                        <div>
-                            <label for="email" class="block text-dark-gray dark:text-white mb-2">Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-dark-gray dark:text-white">
+                    </div>
+                    <div class="glass-card">
+                        <h3 class="text-xl font-semibold text-dark-gray dark:text-white mb-4">Social Links</h3>
+                        <div class="flex justify-center space-x-6">
+                            <a href="#" class="text-2xl text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-2xl text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-2xl text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
                         </div>
-                        <div>
-                            <label for="message" class="block text-dark-gray dark:text-white mb-2">Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-dark-gray dark:text-white"></textarea>
-                        </div>
-                        <button type="submit" class="w-full px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">Send Message</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>

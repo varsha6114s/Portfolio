@@ -2,10 +2,6 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-  server: {
-    port: 3000,
-    open: true
-  },
   base: '/Portfolio/',
   build: {
     outDir: 'dist',
@@ -20,25 +16,23 @@ export default defineConfig({
         },
       },
     },
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
     sourcemap: false,
-    emptyOutDir: true
+    emptyOutDir: true,
+  },
+  server: {
+    port: 3000,
+    open: true,
   },
   css: {
     postcss: './postcss.config.js',
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
-    }
+      '@': resolve(__dirname, 'src'),
+    },
   },
   optimizeDeps: {
-    include: ['three', 'gsap']
+    include: ['three', 'gsap'],
   },
-  publicDir: 'public'
+  publicDir: 'public',
 }); 

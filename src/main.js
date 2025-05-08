@@ -148,20 +148,27 @@ function setupThemeToggle() {
     const themeIcon = document.getElementById('theme-icon');
     const sunIcon = document.getElementById('sun-icon');
     const moonIcon = document.getElementById('moon-icon');
-    const html = document.documentElement;
+    const body = document.body;
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-        html.classList.toggle('dark', savedTheme === 'dark');
+        body.classList.toggle('dark', savedTheme === 'dark');
     }
     
     themeToggle.addEventListener('click', () => {
-        html.classList.toggle('dark');
-        localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        body.classList.toggle('dark');
+        localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
         updateSceneColors();
         updateThemeIcon();
     });
+
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        body.classList.add('dark');
+    }
+
     console.log('Theme toggle setup complete');
 }
 
@@ -224,13 +231,49 @@ function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
             }
         });
     });
     console.log('Smooth scroll setup complete');
-} 
+}
+
+// Update particle color on theme change
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+            if (particles) {
+                const colors = particles.geometry.attributes.color.array;
+                const color = new THREE.Color();
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    if (document.body.classList.contains('dark')) {
+                        color.setHSL(0.6, 0.8, 0.5 + Math.random() * 0.2);
+                    } else {
+                        color.setHSL(0.6, 0.8, 0.3 + Math.random() * 0.2);
+                    }
+                    colors[i3] = color.r;
+                    colors[i3 + 1] = color.g;
+                    colors[i3 + 2] = color.b;
+                }
+                particles.geometry.attributes.color.needsUpdate = true;
+            }
+        }
+    });
+});
+
+observer.observe(document.body, { attributes: true }); 
