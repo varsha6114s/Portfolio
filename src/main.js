@@ -149,15 +149,12 @@ function setupThemeToggle() {
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.toggle('dark', savedTheme === 'dark');
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         body.classList.add('dark');
     }
     
     themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark');
-        const isDark = body.classList.contains('dark');
+        const isDark = body.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
         updateSceneColors();
     });
