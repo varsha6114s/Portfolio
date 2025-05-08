@@ -2,22 +2,22 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,css}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        'modern': ['Poppins', 'sans-serif'],
+        'handwritten': ['Dancing Script', 'cursive'],
+      },
       colors: {
-        'cosmic-blue': '#1a1a2e',
+        'warm-white': '#F8F9FA',
+        'cosmic-blue': '#1A1B26',
         'deep-purple': '#2a1b3d',
         'star-glow': '#9d4edd',
         'sakura-pink': '#ffb7c5',
         'baby-blue': '#a2d2ff',
-        'warm-white': '#fff5e6',
-      },
-      fontFamily: {
-        'handwritten': ['"Dancing Script"', 'cursive'],
-        'modern': ['"Poppins"', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

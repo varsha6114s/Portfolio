@@ -1,0 +1,175 @@
+/* Base styles */
+:root {
+    --primary-color: #8B5CF6;
+    --primary-dark: #7C3AED;
+    --text-light: #1F2937;
+    --text-dark: #F3F4F6;
+    --bg-light: #FFFFFF;
+    --bg-dark: #1F2937;
+}
+
+/* Dark mode styles */
+.dark {
+    --text-color: var(--text-dark);
+    --bg-color: var(--bg-dark);
+}
+
+/* Custom fonts */
+@font-face {
+    font-family: 'Modern';
+    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+}
+
+@font-face {
+    font-family: 'Handwritten';
+    src: url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+}
+
+/* Global styles */
+body {
+    font-family: 'Modern', sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease;
+}
+
+/* Background container */
+#background-3d {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Navigation */
+nav {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Sections */
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Skill cards */
+.skill-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+}
+
+.skill-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.skill-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.skill-progress {
+    height: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 0.25rem;
+    transition: width 1s ease;
+}
+
+/* Project cards */
+.project-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Contact form */
+input, textarea {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .skill-card, .project-card {
+        margin-bottom: 1rem;
+    }
+    
+    #theme-toggle {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+} 
