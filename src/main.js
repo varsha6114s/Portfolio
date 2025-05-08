@@ -1,4 +1,5 @@
-// Import styles
+// Import dependencies
+import * as THREE from 'three';
 import './styles/main.css';
 
 // Debug logging
@@ -12,10 +13,6 @@ const particleCount = 2000;
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Initializing...');
-    if (typeof THREE === 'undefined') {
-        console.error('Three.js not loaded!');
-        return;
-    }
     if (typeof gsap === 'undefined') {
         console.error('GSAP not loaded!');
         return;
