@@ -1,6 +1,6 @@
 // Import dependencies
-import * as THREE from 'three';
-import './styles/main.css';
+// import * as THREE from 'three';  // Remove this line since we're using CDN
+import './styles/main.css';  // Add this back since we're using Vite's CSS handling
 
 // Debug logging
 console.log('Initializing portfolio...');
