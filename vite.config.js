@@ -17,6 +17,9 @@ export default defineConfig({
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
             return `assets/images/[name][extname]`;
           }
+          if (ext === 'css') {
+            return `assets/css/[name][extname]`;
+          }
           return `assets/[name][extname]`;
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -24,6 +27,12 @@ export default defineConfig({
       }
     },
     copyPublicDir: true
+  },
+  css: {
+    modules: false,
+    postcss: {
+      plugins: []
+    }
   },
   publicDir: 'public',
   server: {
